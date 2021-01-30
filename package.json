@@ -1,0 +1,25 @@
+{
+  "name": "simple-conntest-express",
+  "version": "1.0.0",
+  "description": "test connection via web request",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./app",
+    "test": "nodemon ./app"
+  },
+  "author": "Travis",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+    "node_modules/**/node_modules"
+    ],
+    "env": {
+      "SECRET": "testing",
+      "PORT": 3000
+    }
+  }
+}
