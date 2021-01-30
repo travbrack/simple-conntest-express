@@ -4,6 +4,7 @@ const app = express()
 const https = require('https')
 const axios = require('axios').default
 const bodyParser = require('body-parser')
+const ping = require ("net-ping");
 
 const port = lib.normalizePort(process.env.PORT || '3000')
 const secretHeader = 'X-SECRET-KEY'
@@ -21,7 +22,6 @@ app.use((req, res, next)=> {
 })
 
 app.post('/http', (req, res) => {
-  console.log(req.body)
   if (!req.body.method){
     res.send('Must supply connection object')
   } else {
@@ -31,6 +31,24 @@ app.post('/http', (req, res) => {
       res.send(err)
     })
   }
+})
+
+app.post('/ping', (req,res) => {
+  var session = ping.createSession ();
+
+  session.pingHost (req.body.host, (error, target, sent, rcvd) => {
+    let ms = rcvd - sent
+
+    if (error) {
+      if (error instanceof ping.RequestTimedOutError) {
+        res.send(target + ": Not alive");
+      } else {
+        res.send(target + ": " + error.toString ());
+      }
+    } else {
+      res.send(target + ": Alive (ms=" + ms + ")")
+    }
+  })
 })
 
 app.listen(port)

@@ -26,3 +26,7 @@ coverage
 
 # Benchmarking
 benchmarks/graphs
+
+# VS Code
+.vscode
+.deployment

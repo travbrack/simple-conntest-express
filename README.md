@@ -15,12 +15,22 @@ To authenticate, set the `X-SECRET-KEY` header to the pre-shared key passed in a
 
 ## HTTP
 
-To make an HTTP request, send a `POST` request to `/http` with an [Axios config object](https://github.com/axios/axios#axios-api)
+To make an HTTP request, send a `POST` request to `/http` with an [Axios config object](https://github.com/axios/axios#axios-api) in JSON
 
 ```bash
 LISTENING_ADDR='http://localhost:3000'
 
 curl -w "\n" -H "X-SECRET-KEY: testing" -H "Content-Type: application/json" -X POST --data '{"method": "get", "timeout": 1000, "url": "https://ifconfig.co"}' ${LISTENING_ADDR}/http
+```
+
+## ICMP
+
+To make an ICMP ping request, send a `POST` request to `/ping` with a JSON object in this format: `{"host": "1.2.3.4"}`
+
+```bash
+LISTENING_ADDR='http://localhost:3000'
+
+curl -w "\n" -H "X-SECRET-KEY: testing" -H "Content-Type: application/json" -X POST --data '{"host": "8.8.8.8"}' ${LISTENING_ADDR}/ping
 ```
 
 ## Test locally
